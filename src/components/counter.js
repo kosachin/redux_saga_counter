@@ -21,9 +21,8 @@ const Counter = ({
     handleDecCountReq();
     handleDecCountSuc();
   };
-  if (error) {
-    return <h1>{error}</h1>;
-  }
+
+  if (count > 100 || count < 0) handleCounterFailure();
   return (
     <>
       <div
@@ -35,19 +34,18 @@ const Counter = ({
         }}
       >
         {loading ? (
-          <div className="loader"></div>
+          !error && <div className="loader"></div>
         ) : (
           <div>
-            {/* {count < 0 || count > 100 ? (
-              ((<h1>{error}</h1>), handleCounterFailure())
-            ) : ( */}
-            <>
-              {" "}
-              <h1>{count}</h1>
-              <button onClick={handleInc}>+</button>
-              <button onClick={handleDec}>-</button>
-            </>
-            {/* )} */}
+            {error && <h1>{error}</h1>}
+
+            {!error && (
+              <>
+                <h1>{count}</h1>
+                <button onClick={handleInc}>+</button>
+                <button onClick={handleDec}>-</button>
+              </>
+            )}
           </div>
         )}
         <div>
